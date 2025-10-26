@@ -186,8 +186,12 @@ jobs:
         run: |
           # Ensure full history
           git fetch origin main
-          git checkout "${GITHUB_REF##*/}"
-          git branch --set-upstream-to=origin/main "${GITHUB_REF##*/}"
+      
+          # Determine branch name safely
+          BRANCH_NAME="${{ github.head_ref || github.ref_name }}"
+          echo "Using branch: $BRANCH_NAME"
+          git checkout "$BRANCH_NAME"
+          git branch --set-upstream-to=origin/main "$BRANCH_NAME"
       
           # Check for test files
           has_tests=$(find src/test/java -type f -name "*.java" | grep -q . && echo "true" || echo "false")
