@@ -182,23 +182,23 @@ jobs:
           java-version: '25'
 
       - name: Check for modified files and test presence
-  id: code-check
-  run: |
-    # Ensure full history
-    git fetch origin main
-    git checkout ${{ github.ref_name }}
-    git branch --set-upstream-to=origin/main ${{ github.ref_name }}
-
-    # Check for test files
-    has_tests=$(find src/test/java -type f -name "*.java" | grep -q . && echo "true" || echo "false")
-
-    # Check for modified files
-    changed_files=$(git diff --name-only origin/main...HEAD | grep -E '^src/(main|test)/java/.*\.java$' || true)
-    has_changes=$(test -n "$changed_files" && echo "true" || echo "false")
-
-    echo "has_tests=$has_tests" >> $GITHUB_OUTPUT
-    echo "has_changes=$has_changes" >> $GITHUB_OUTPUT
-    echo "should_grade=$([[ $has_tests == 'true' && $has_changes == 'true' ]] && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
+        id: code-check
+        run: |
+          # Ensure full history
+          git fetch origin main
+          git checkout "${GITHUB_REF##*/}"
+          git branch --set-upstream-to=origin/main "${GITHUB_REF##*/}"
+      
+          # Check for test files
+          has_tests=$(find src/test/java -type f -name "*.java" | grep -q . && echo "true" || echo "false")
+      
+          # Check for modified files
+          changed_files=$(git diff --name-only origin/main...HEAD | grep -E '^src/(main|test)/java/.*\.java$' || true)
+          has_changes=$(test -n "$changed_files" && echo "true" || echo "false")
+      
+          echo "has_tests=$has_tests" >> $GITHUB_OUTPUT
+          echo "has_changes=$has_changes" >> $GITHUB_OUTPUT
+          echo "should_grade=$([[ $has_tests == 'true' && $has_changes == 'true' ]] && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
 
       - name: Compilation Check
         id: compilation-check
