@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 public class HelloFX extends Application {
 
+
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloFX.class.getResource("hello-view.fxml"));
@@ -20,6 +21,7 @@ public class HelloFX extends Application {
 
     public static void main(String[] args) {
         launch();
+        System.out.println("Hej detta är ett test för att kontrollera branch ");
     }
 
 }
