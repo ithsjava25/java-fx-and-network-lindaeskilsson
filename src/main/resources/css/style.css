@@ -2,3 +2,12 @@
     -fx-background-image: url("../background.png");
     -fx-background-size: cover;
 }
+
+.outlined-text {
+    -fx-font-size: 40px;
+    -fx-fill: green; /* gör texten grön */
+    -fx-stroke-width: 3px;
+    -fx-font-family: "Apple Symbols";
+    -fx-letter-spacing: 3px; /* mer space mellan bokstäver */
+    -fx-margin-bottom: 30px;
+}
