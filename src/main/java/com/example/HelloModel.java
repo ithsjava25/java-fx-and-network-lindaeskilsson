@@ -1,12 +1,15 @@
 package com.example;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.cdimascio.dotenv.Dotenv;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -18,6 +21,8 @@ public class HelloModel {
      */
     private final String hostName;
     private final HttpClient http = HttpClient.newHttpClient();
+    private final ArrayList<NtfyMessageDto> messeges = new ArrayList<>();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public HelloModel() {
         Dotenv dotenv = Dotenv.load();
@@ -33,15 +38,15 @@ public class HelloModel {
     public void sendMessage() {
 
         HttpRequest httpRequest = (HttpRequest) HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString("LE: My first messege!"))
+                .POST(HttpRequest.BodyPublishers.ofString("LE: Hello!"))
                 .uri(URI.create(hostName + "/mytopic"))
                 .build();
         try {
             var response = http.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         } catch (IOException e) {
-            System.out.println("Error sending messege");
+            System.out.println("Error sending message");
         } catch (InterruptedException e) {
-            System.out.println("interupded sending messege");
+            System.out.println("interupded sending message");
         }
     }
 
@@ -52,7 +57,10 @@ public class HelloModel {
                 .build();
 
         http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
-                .thenAccept(response -> response.body().forEach(System.out::println));
+                .thenAccept(response -> response.body()
+                        .map(s-> mapper.readValue(s, NtfyMessageDto.class))
+                        .peek(System.out::println)
+                        .forEach(s-> messeges.add(s)));
     }
 
     }
