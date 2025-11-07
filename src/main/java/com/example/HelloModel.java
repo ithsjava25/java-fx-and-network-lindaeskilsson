@@ -2,6 +2,9 @@ package com.example;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -21,14 +24,22 @@ public class HelloModel {
      */
     private final String hostName;
     private final HttpClient http = HttpClient.newHttpClient();
-    private final ArrayList<NtfyMessageDto> messeges = new ArrayList<>();
     private final ObjectMapper mapper = new ObjectMapper();
+
+    private final ObservableList<NtfyMessageDto> messages = FXCollections.observableArrayList();
+
+
 
     public HelloModel() {
         Dotenv dotenv = Dotenv.load();
         hostName = Objects.requireNonNull(dotenv.get("NTFY_TOPIC")).trim();
         receiveMessage();
     }
+
+    public ObservableList<NtfyMessageDto> getMessages() {
+        return messages;
+    }
+
     public String getGreeting() {
         String javaVersion = System.getProperty("java.version");
         String javafxVersion = System.getProperty("javafx.version");
@@ -38,7 +49,7 @@ public class HelloModel {
     public void sendMessage() {
 
         HttpRequest httpRequest = (HttpRequest) HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString("LE: Hello!"))
+                .POST(HttpRequest.BodyPublishers.ofString("Hello!"))
                 .uri(URI.create(hostName + "/mytopic"))
                 .build();
         try {
@@ -58,9 +69,11 @@ public class HelloModel {
 
         http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
                 .thenAccept(response -> response.body()
-                        .map(s-> mapper.readValue(s, NtfyMessageDto.class))
+                        .map(s -> mapper.readValue(s, NtfyMessageDto.class))
+                        .filter(message -> message.event().equals("message"))
                         .peek(System.out::println)
-                        .forEach(s-> messeges.add(s)));
+                        .forEach(s ->
+                                Platform.runLater(() -> messages.add(s))));
     }
 
     }

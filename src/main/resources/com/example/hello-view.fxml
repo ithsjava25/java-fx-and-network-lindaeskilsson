@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ListView?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.HelloController"
@@ -20,6 +21,8 @@
 
     <Button text="Sent Message"
             onAction="#sendMessege"> </Button>
+
+    <ListView fx:id="messageView"/>
 
 </VBox>
 
