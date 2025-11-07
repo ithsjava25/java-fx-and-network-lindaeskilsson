@@ -17,10 +17,12 @@ public class HelloModel {
      * Returns a greeting based on the current Java and JavaFX versions.
      */
     private final String hostName;
+    private final HttpClient http = HttpClient.newHttpClient();
 
     public HelloModel() {
         Dotenv dotenv = Dotenv.load();
         hostName = Objects.requireNonNull(dotenv.get("NTFY_TOPIC")).trim();
+        receiveMessage();
     }
     public String getGreeting() {
         String javaVersion = System.getProperty("java.version");
@@ -29,23 +31,29 @@ public class HelloModel {
     }
 
     public void sendMessage() {
-        // todo: send messege using HTTPclient
-        HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest httpRequest = (HttpRequest) HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString("My first messege!"))
+                .POST(HttpRequest.BodyPublishers.ofString("LE: My first messege!"))
                 .uri(URI.create(hostName + "/mytopic"))
                 .build();
         try {
-            //todo: handle long blocking send request to not freeze the javaFX thread
-            //1. use thread send messege?
-            //2. use async?
-            var response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            var response = http.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         } catch (IOException e) {
             System.out.println("Error sending messege");
         } catch (InterruptedException e) {
             System.out.println("interupded sending messege");
         }
     }
+
+    public void receiveMessage() {
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(hostName + "/mytopic/json"))
+                .build();
+
+        http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
+                .thenAccept(response -> response.body().forEach(System.out::println));
+    }
+
     }
 
