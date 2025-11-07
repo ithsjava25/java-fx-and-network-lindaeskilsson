@@ -37,6 +37,9 @@ public class HelloModel {
                 .uri(URI.create(hostName + "/mytopic"))
                 .build();
         try {
+            //todo: handle long blocking send request to not freeze the javaFX thread
+            //1. use thread send messege?
+            //2. use async?
             var response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         } catch (IOException e) {
             System.out.println("Error sending messege");
