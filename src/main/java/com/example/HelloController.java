@@ -1,5 +1,6 @@
 package com.example;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -23,10 +24,8 @@ public class HelloController {
 
     @FXML
     private void initialize() {
-        if (messageLabel != null) {
-            messageLabel.setText(model.getGreeting());
-        }
         messageView.setItems(model.getMessages());
+        Platform.runLater(model::receiveMessage); // kör först när FX-tråden är aktiv
     }
 
     @FXML private TextField messageField;

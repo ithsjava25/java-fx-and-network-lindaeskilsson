@@ -19,7 +19,6 @@ public class HelloModel {
 
     public HelloModel(NtfyConnection connection) {
         this.connection = connection;
-        receiveMessage();
     }
 
     public ObservableList<NtfyMessageDto> getMessages() {
@@ -45,6 +44,10 @@ public class HelloModel {
     }
 
     public void receiveMessage() {
-        connection.receive(m -> Platform.runLater(() -> messages.add(m)));
+        connection.receive(m -> {
+            System.out.println("📩 Received: " + m.message());
+            Platform.runLater(() -> messages.add(m));
+        });
     }
+
 }

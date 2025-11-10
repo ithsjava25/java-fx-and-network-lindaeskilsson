@@ -22,6 +22,7 @@ public class NtfyConnectionImpl implements NtfyConnection {
     public NtfyConnectionImpl() {
         Dotenv dotenv = Dotenv.load();
         hostName = Objects.requireNonNull(dotenv.get("NTFY_TOPIC"));
+
     }
 
     public NtfyConnectionImpl(String hostName) {
