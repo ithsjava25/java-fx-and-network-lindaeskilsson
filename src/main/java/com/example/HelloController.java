@@ -10,7 +10,7 @@ import javafx.scene.control.ListView;
  */
 public class HelloController {
 
-    private final HelloModel model = new HelloModel();
+    private final HelloModel model = new HelloModel(new NtfyConnectionImpl());
     public ListView<NtfyMessageDto> messageView;
 
 
@@ -24,6 +24,7 @@ public class HelloController {
         }
         messageView.setItems(model.getMessages());
         //messageView.setCellFactory();
+
     }
 
     public void sendMessege(ActionEvent actionEvent) {
