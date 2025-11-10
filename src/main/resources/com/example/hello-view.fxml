@@ -19,12 +19,7 @@
     <Label fx:id="messageLabel"
            text="Hello, JavaFX!"/>
 
-    <TextField fx:id="messageField"
-               promptText="Write your message here..." />
-
-    <Button text="Sent Message"
-            onAction="#sendMessege"> </Button>
-
+    <Button text="Send Message" onAction="#sendMessege" />
     <ListView fx:id="messageView"/>
 
 </VBox>

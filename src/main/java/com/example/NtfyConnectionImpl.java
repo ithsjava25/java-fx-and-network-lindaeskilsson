@@ -17,13 +17,10 @@ public class NtfyConnectionImpl implements NtfyConnection {
     private final String hostName;
     private final ObjectMapper mapper = new ObjectMapper();
 
+
     public NtfyConnectionImpl() {
         Dotenv dotenv = Dotenv.load();
-        hostName = Objects.requireNonNull(dotenv.get("HOST_NAME"));
-    }
-
-    public NtfyConnectionImpl(String hostName) {
-        this.hostName = hostName;
+        hostName = Objects.requireNonNull(dotenv.get("NTFY_TOPIC")).trim(); // 👈 lägg till .trim()
     }
 
     @Override
