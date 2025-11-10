@@ -17,10 +17,13 @@ public class NtfyConnectionImpl implements NtfyConnection {
     private final String hostName;
     private final ObjectMapper mapper = new ObjectMapper();
 
-
     public NtfyConnectionImpl() {
         Dotenv dotenv = Dotenv.load();
-        hostName = Objects.requireNonNull(dotenv.get("NTFY_TOPIC")).trim(); // 👈 lägg till .trim()
+        hostName = Objects.requireNonNull(dotenv.get("NTFY_TOPIC"));
+    }
+
+    public NtfyConnectionImpl(String hostName) {
+        this.hostName = hostName;
     }
 
     @Override
@@ -31,6 +34,9 @@ public class NtfyConnectionImpl implements NtfyConnection {
                 .uri(URI.create(hostName + "/mytopic"))
                 .build();
         try {
+            //Todo: handle long blocking send requests to not freeze the JavaFX thread
+            //1. Use thread send message?
+            //2. Use async?
             var reponse = http.send(httpRequest, HttpResponse.BodyHandlers.discarding());
             return true;
         } catch (IOException e) {
@@ -56,4 +62,4 @@ public class NtfyConnectionImpl implements NtfyConnection {
                         .peek(System.out::println)
                         .forEach(messageHandler));
     }
-    }
+}

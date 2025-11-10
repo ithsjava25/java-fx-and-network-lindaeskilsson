@@ -13,7 +13,6 @@ public class HelloController {
     private final HelloModel model = new HelloModel(new NtfyConnectionImpl());
     public ListView<NtfyMessageDto> messageView;
 
-
     @FXML
     private Label messageLabel;
 
@@ -23,11 +22,9 @@ public class HelloController {
             messageLabel.setText(model.getGreeting());
         }
         messageView.setItems(model.getMessages());
-        //messageView.setCellFactory();
-
     }
 
-    public void sendMessege(ActionEvent actionEvent) {
+    public void sendMessage(ActionEvent actionEvent) {
         model.sendMessage();
     }
 }
