@@ -26,6 +26,7 @@ public class HelloController {
     }
 
     public void sendMessage(ActionEvent actionEvent) {
+        model.setMessageToSend("Hello from me 🚀");
         model.sendMessage();
     }
 }
