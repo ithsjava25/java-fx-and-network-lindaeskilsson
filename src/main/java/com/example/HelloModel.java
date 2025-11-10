@@ -1,6 +1,5 @@
 package com.example;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -12,7 +11,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
