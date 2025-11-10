@@ -53,15 +53,21 @@ public class NtfyConnectionImpl implements NtfyConnection {
     public void receive(Consumer<NtfyMessageDto> messageHandler) {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(hostName + "/mytopic"))
+                .uri(URI.create(hostName + "/mytopic/json")) // ✅ viktigt: /json för att få JSON-ström
                 .build();
 
         http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
                 .thenAccept(response -> response.body()
-                        .map(s ->
-                                mapper.readValue(s, NtfyMessageDto.class))
-                        .filter(message -> message.event().equals("message"))
-                        .peek(System.out::println)
-                        .forEach(messageHandler));
-    }
+                        .map(line -> {
+                            try {
+                                return mapper.readValue(line, NtfyMessageDto.class);
+                            } catch (Exception e) {
+                                return null;
+                            }
+                        })
+                        .filter(m -> m != null && "message".equals(m.event()))
+                        .peek(m -> System.out.println("📩 Received: " + m.message()))
+                        .forEach(messageHandler)
+                );
+}
 }
