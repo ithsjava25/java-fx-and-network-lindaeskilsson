@@ -1,6 +1,5 @@
 package com.example;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -16,7 +15,7 @@ public class HelloController {
     private final HelloModel model = new HelloModel(new NtfyConnectionImpl());
     public ListView<NtfyMessageDto> messageView;
 
-    // 🔹 Här sparar vi senaste texten användaren skrev
+    // Här sparar vi senaste texten användaren skrev
     private String lastInput;
 
     @FXML
@@ -32,7 +31,7 @@ public class HelloController {
 
     @FXML private TextField messageField;
 
-    public void sendMessage(ActionEvent actionEvent) {
+    public void sendMessage() {
         // Läs text från inputfältet
         String inputText = messageField.getText().trim();
 

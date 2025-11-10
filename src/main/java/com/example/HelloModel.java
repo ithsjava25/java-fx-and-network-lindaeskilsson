@@ -26,14 +26,6 @@ public class HelloModel {
         return messages;
     }
 
-    public String getMessageToSend() {
-        return messageToSend.get();
-    }
-
-    public StringProperty messageToSendProperty() {
-        return messageToSend;
-    }
-
     public void setMessageToSend(String message) {
         messageToSend.set(message);
     }
