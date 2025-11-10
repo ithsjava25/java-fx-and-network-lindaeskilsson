@@ -6,6 +6,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+
 /**
  * Hanterar logik och data (skickar & tar emot meddelanden).
  */

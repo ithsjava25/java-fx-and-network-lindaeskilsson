@@ -10,5 +10,6 @@
       spacing="10">
 
     <ListView fx:id="messageView" />
+    <TextField fx:id="messageField" promptText="Write your message..." prefWidth="300"/>
     <Button text="Send test message" onAction="#sendMessage" />
 </VBox>
