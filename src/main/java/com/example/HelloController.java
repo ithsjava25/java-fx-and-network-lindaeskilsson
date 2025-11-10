@@ -6,8 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 /**
- * Controller layer: mediates between the view (FXML) and the model.
+ * Binder ihop View ↔ Model.
  */
+
 public class HelloController {
 
     private final HelloModel model = new HelloModel(new NtfyConnectionImpl());

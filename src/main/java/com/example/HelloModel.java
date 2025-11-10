@@ -7,7 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Model layer: encapsulates application data and business logic.
+ * Hanterar logik och data (skickar & tar emot meddelanden).
  */
 public class HelloModel {
 

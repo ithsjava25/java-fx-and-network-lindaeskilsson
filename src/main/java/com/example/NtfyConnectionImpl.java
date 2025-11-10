@@ -11,6 +11,8 @@ import java.net.http.HttpResponse;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+//Gränssnitt + implementation → visar Dependency Inversion.
+
 public class NtfyConnectionImpl implements NtfyConnection {
 
     private final HttpClient http = HttpClient.newHttpClient();
@@ -51,7 +53,7 @@ public class NtfyConnectionImpl implements NtfyConnection {
     public void receive(Consumer<NtfyMessageDto> messageHandler) {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(hostName + "/mytopic/json"))
+                .uri(URI.create(hostName + "/mytopic"))
                 .build();
 
         http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
