@@ -45,7 +45,6 @@ public class HelloModel {
 
     public void receiveMessage() {
         connection.receive(m -> {
-            System.out.println("📩 Received: " + m.message());
             Platform.runLater(() -> messages.add(m));
         });
     }

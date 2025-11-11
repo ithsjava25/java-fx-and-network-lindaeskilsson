@@ -25,9 +25,14 @@ public class HelloController {
     @FXML
     private void initialize() {
         messageView.setItems(model.getMessages());
-        Platform.runLater(model::receiveMessage); // kör först när FX-tråden är aktiv
-    }
 
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000); // Vänta 1 sekund på att FX-tråden ska starta
+            } catch (InterruptedException ignored) {}
+            Platform.runLater(model::receiveMessage);
+        }).start();
+    }
     @FXML private TextField messageField;
 
     public void sendMessage() {
