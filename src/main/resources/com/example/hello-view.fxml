@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.control.Label?>
 
-<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.HelloController">
-    <children>
-        <Label fx:id="messageLabel" text="Hello, JavaFX!" />
-    </children>
-</StackPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER"
+      spacing="10"
+      stylesheets="@../../css/hello-view.css"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.HelloController"
+>
+
+    <Label styleClass="title-label" text="💬 Come Chat with me!" />
+    <ListView fx:id="messageView" />
+    <TextField fx:id="messageField" prefWidth="300" promptText="Write your message..." />
+    <Button onAction="#sendMessage" text="Send test message" />
+</VBox>

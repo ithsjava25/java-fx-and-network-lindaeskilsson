@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+//startar JavaFX-applikationen (extends Application)
+
 public class HelloFX extends Application {
 
     @Override

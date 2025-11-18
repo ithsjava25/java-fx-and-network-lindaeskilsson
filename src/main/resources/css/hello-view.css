@@ -1,0 +1,72 @@
+
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    -fx-font-size: 14px;
+}
+
+
+.vbox {
+    -fx-spacing: 15;
+    -fx-padding: 40 0 40 0;   /* top, right, bottom, left */
+    -fx-alignment: center;
+}
+
+
+.title-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a4a4a;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 2, 0, 0, 1);
+}
+
+
+.list-view {
+    -fx-pref-width: 300;
+    -fx-pref-height: 200;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d6d9de;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);
+}
+
+
+.scroll-bar:vertical {
+    -fx-pref-width: 8px;
+}
+.scroll-bar .thumb {
+    -fx-background-color: #a5b3c2;
+    -fx-background-radius: 4px;
+}
+
+
+.text-field {
+    -fx-pref-width: 220;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cfd3db;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 6px 10px;
+}
+.text-field:focused {
+    -fx-border-color: #6a82fb;
+    -fx-effect: dropshadow(gaussian, rgba(106,130,251,0.25), 8, 0, 0, 3);
+}
+
+
+.button {
+    -fx-background-color: linear-gradient(to right, #6a82fb, #fc5c7d);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+.button:hover {
+    -fx-background-color: linear-gradient(to right, #7b91ff, #ff6f8c);
+}
+.button:pressed {
+    -fx-background-color: linear-gradient(to right, #5c73e6, #e04b6b);
+}
